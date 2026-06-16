@@ -64,6 +64,20 @@ function lookRight(){
     );
 }
 
+function startRunning(){
+
+    goat.classList.add(
+        "goat-running"
+    );
+}
+
+function stopRunning(){
+
+    goat.classList.remove(
+        "goat-running"
+    );
+}
+
 /* =========================
    MOVER AL GANADOR
 ========================= */
@@ -114,16 +128,29 @@ async function decisionSegura(
     goat.src =
     "assets/goat/caminando.png";
 
+    if(winnerSide === "left"){
+
+        lookLeft();
+
+    }else{
+
+        lookRight();
+    }
+
+    startRunning();
+
     moveToWinner(
         winnerSide
     );
 
     await sleep(1800);
 
+    stopRunning();
+
     goat.src =
     "assets/goat/contento.png";
-}
 
+}
 /* =========================
    ANIMACION 2
    DUDA Y CORRECCION
@@ -144,6 +171,8 @@ async function dudaCorreccion(
 
     goat.src =
     "assets/goat/caminando.png";
+
+    lookLeft();
 
     goat.style.left = "40%";
 
@@ -192,6 +221,8 @@ async function amague(
 
     goat.src =
     "assets/goat/caminando.png";
+
+    lookRight();
 
     goat.style.left = "60%";
 
@@ -289,6 +320,8 @@ async function indecisa(
 
     await sleep(1000);
 
+    lookRight();
+
     goat.style.left = "61%";
 
     await sleep(800);
@@ -321,11 +354,11 @@ async function playRandomAnimation(
 
     const animations = [
 
-        decisionSegura,
-        dudaCorreccion,
-        amague,
-        calmada,
-        indecisa
+         decisionSegura,
+         dudaCorreccion,
+         amague,
+         calmada,
+         indecisa
 
     ];
 
